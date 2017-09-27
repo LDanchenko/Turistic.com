@@ -43,12 +43,13 @@ Template Name: Novosti
                 </div>
             </div>
             <!-- post-mini_end-->
+
         <?php endwhile;
         else: ?>
             <p><?php _e( 'Ничего не найдено.' ); ?></p>
         <?php endif; ?>
-
     </div>
+
     <div class="pagenavi-post-wrap">
 
         <?php the_posts_pagination( $args );
@@ -65,7 +66,9 @@ Template Name: Novosti
         );
         ?>
     </div>
+
 </div>
+
 <!-- sidebar-->
 <?php get_template_part('_parts/sidebar')?>
 <?php get_footer(); ?>
