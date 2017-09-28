@@ -45,7 +45,6 @@ Template Name: Akcii
 							<?php the_excerpt(); ?>
                         </p>
                         <p>
-                            Цена: <?php the_field('price'); ?>
 
                         </p>
                     </div>
@@ -61,8 +60,8 @@ Template Name: Akcii
         $GLOBALS['wp_query']->max_num_pages = $projects->max_num_pages;
         the_posts_pagination( array(
             'mid_size' => 1,
-            'prev_text' => __( 'Back', 'green' ),
-            'next_text' => __( 'Onward', 'green' ),
+            'prev_text' => __( 'Назад', 'green' ),
+            'next_text' => __( 'Далее', 'green' ),
             'screen_reader_text' => __( 'Posts navigation' )
         ) );
         ?>

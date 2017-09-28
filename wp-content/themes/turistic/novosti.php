@@ -4,17 +4,29 @@ Template Name: Novosti
 */
 ?>
 
+
 <?php get_header(); ?>
 <div class="content">
     <h1 class="title-page">Последние новости </h1>
 
 
     <div class="posts-list">
-        <?php
-        $posts = query_posts(['post_type' => 'news']);
-        ?>
-        <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 
+        <?php
+        $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+        $args = array(
+
+            'orderby' => 'menu_order',
+            'order'=> 'ASC',
+            'paged'=>$paged,
+            'post_type' => 'news'
+        );
+
+        $projects = new WP_Query($args);
+        if ($projects->have_posts() ) :
+        while ($projects->have_posts() ) :
+            $projects->the_post();
+            ?>
 
             <div class="post-wrap">
                 <div class="post-thumbnail">
@@ -34,7 +46,6 @@ Template Name: Novosti
                             <?php the_excerpt(); ?>
                         </p>
                         <p>
-                            Цена: <?php the_field('price'); ?>
 
                         </p>
                     </div>
@@ -43,32 +54,25 @@ Template Name: Novosti
                 </div>
             </div>
             <!-- post-mini_end-->
-
-        <?php endwhile;
-        else: ?>
-            <p><?php _e( 'Ничего не найдено.' ); ?></p>
-        <?php endif; ?>
+        <?php        endwhile; ?>
     </div>
-
     <div class="pagenavi-post-wrap">
-
-        <?php the_posts_pagination( $args );
-        $args = array(
-            'show_all'     => false, // показаны все страницы участвующие в пагинации
-            'end_size'     => 1,     // количество страниц на концах
-            'mid_size'     => 1,     // количество страниц вокруг текущей
-            'prev_next'    => true,  // выводить ли боковые ссылки "предыдущая/следующая страница".
-            'prev_text'    => __('<<'),
-            'next_text'    => __('Далее'),
-            'add_args'     => false, // Массив аргументов (переменных запроса), которые нужно добавить к ссылкам.
-            'add_fragment' => '',     // Текст который добавиться ко всем ссылкам.
-            'screen_reader_text' => __( 'Posts navigation' ),
-        );
+        <?php
+        $GLOBALS['wp_query']->max_num_pages = $projects->max_num_pages;
+        the_posts_pagination( array(
+            'mid_size' => 1,
+            'prev_text' => __( 'Назад', 'green' ),
+            'next_text' => __( 'Далее', 'green' ),
+            'screen_reader_text' => __( 'Posts navigation' )
+        ) );
         ?>
     </div>
+    <?php endif; ?>
+
+
+
 
 </div>
-
 <!-- sidebar-->
 <?php get_template_part('_parts/sidebar')?>
 <?php get_footer(); ?>

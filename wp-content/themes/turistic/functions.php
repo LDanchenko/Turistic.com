@@ -168,3 +168,12 @@ function custom_post_type_news() {
 
 }
 add_action( 'init', 'custom_post_type_news', 0 );
+
+//для стилей в ссылках на предыдущую статью и следующую статью
+add_filter('next_post_link', 'post_link_attributes');
+add_filter('previous_post_link', 'post_link_attributes');
+
+function post_link_attributes($output) {
+    $code = 'class="article-pagination__link"';
+    return str_replace('<a href=', '<a '.$code.' href=', $output);
+}
