@@ -177,3 +177,14 @@ function post_link_attributes($output) {
     $code = 'class="article-pagination__link"';
     return str_replace('<a href=', '<a '.$code.' href=', $output);
 }
+
+//чтобы акции было видно в категориях
+function custom_post_type_cat_filter($query) {
+    if ( !is_admin() && $query->is_main_query() ) {
+        if ($query->is_category()) {
+            $query->set( 'post_type', array( 'post', 'akcii' ) );
+        }
+    }
+}
+
+add_action('pre_get_posts','custom_post_type_cat_filter');
