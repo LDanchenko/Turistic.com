@@ -4,7 +4,6 @@ Template Name: Novosti
 */
 ?>
 
-
 <?php get_header(); ?>
 <div class="content">
     <h1 class="title-page">Последние новости </h1>

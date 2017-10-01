@@ -42,5 +42,13 @@
                 </li>
             </ul>
         </div>
+
+
+
+    </div>
+
+    <div class="sidebar__sidebar-item">
+        <?php    get_calendar(false);  //posts calendar
+        ?>
     </div>
 </div>
